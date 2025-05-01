@@ -12,7 +12,9 @@ export default function RatingExample({ artist, album, rating, imageUrl }) {
       stars.push(
         <Star
           key={`full-${i}`}
-          className="w-5 h-5 text-yellow-400 fill-yellow-400"
+          className="w-5 h-5 text-yellow-400 fill-yellow-400 "
+          strokeWidth={2}
+          fill="currentColor"
         />
       );
     }

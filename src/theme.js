@@ -54,12 +54,13 @@ const theme = createTheme({
     },
     MuiCard: {
       styleOverrides: {
-        root: {
-          backgroundColor: "#1E1E1E",
-          transition: "transform 0.2s",
-          "&:hover": {
-            transform: "translateY(-5px)",
-          },
+        backgroundColor: "#1E1E1E",
+        transition: "transform 0.2s",
+        height: "100%", // Add this to ensure equal height
+        display: "flex", // Add flex display
+        flexDirection: "column", // Stack content vertically
+        "&:hover": {
+          transform: "translateY(-5px)",
         },
       },
     },

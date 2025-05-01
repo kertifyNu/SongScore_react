@@ -38,6 +38,8 @@ export default function FeaturesSection() {
       }}
     >
       <Container maxWidth="lg">
+        {" "}
+        {/* Ensure container has proper max width */}
         <Typography
           variant="h2"
           component="h2"
@@ -50,15 +52,18 @@ export default function FeaturesSection() {
         >
           Why RateMusic?
         </Typography>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{ maxWidth: "30%" }}>
           {features.map((feature, index) => (
             <Grid
               item
-              xs={4}
+              xs={12}
               md={4}
-              lg={4}
-              sx={{ width: "100%", maxWidth: "100%" }}
               key={index}
+              sx={{
+                // Ensure grid items display properly
+                display: "flex",
+                justifyContent: "center",
+              }}
             >
               <FeatureCard
                 title={feature.title}

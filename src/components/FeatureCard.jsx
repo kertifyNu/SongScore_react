@@ -11,6 +11,7 @@ export default function FeatureCard({ title, description, imageSrc, altText }) {
   return (
     <Card
       sx={{
+        width: "100%", // Added width constraint
         backgroundColor: "#1E1E1E",
         height: "100%",
         transition: "transform 0.2s",
@@ -19,6 +20,8 @@ export default function FeatureCard({ title, description, imageSrc, altText }) {
         },
         boxShadow: 3,
         borderRadius: 2,
+        display: "flex", // Added flex
+        flexDirection: "column", // Ensures proper card stacking
       }}
     >
       <CardMedia
@@ -29,6 +32,7 @@ export default function FeatureCard({ title, description, imageSrc, altText }) {
         sx={{
           bgcolor: "#1A1A1A",
           objectFit: "cover",
+          flexShrink: 0, // Prevents image from shrinking
         }}
       />
       <CardContent
@@ -36,7 +40,7 @@ export default function FeatureCard({ title, description, imageSrc, altText }) {
           p: 2.5,
           display: "flex",
           flexDirection: "column",
-          height: "calc(100% - 144px)",
+          flexGrow: 1, // Added to fill remaining space
         }}
       >
         <Typography variant="h6" component="h3" sx={{ mb: 1, fontWeight: 500 }}>

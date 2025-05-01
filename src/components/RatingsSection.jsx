@@ -6,7 +6,7 @@ const ratings = [
   {
     artist: "The Weeknd",
     album: "After Hours",
-    rating: 4.5,
+    rating: 5,
     imageUrl:
       "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=64&h=64",
   },
@@ -31,7 +31,7 @@ export default function RatingsSection() {
           by your personal ratings, making it easier to rediscover favorites.
         </Typography>
 
-        <Grid container spacing={3} mb={5}>
+        <Grid container spacing={3} mb={5} mr={5}>
           {ratings.map((rating, index) => (
             <Grid item xs={12} md={6} key={index}>
               <RatingExample

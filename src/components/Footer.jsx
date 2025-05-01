@@ -1,11 +1,11 @@
 import { Box, Container, Typography, Link, Stack } from "@mui/material";
 
-export default function Footer() {
+export default function Footer({ bgColor = "background.default" }) {
   return (
     <Box
       component="footer"
       sx={{
-        bgcolor: "background.default",
+        bgcolor: bgColor,
         py: 4,
         px: { xs: 2, md: 4 },
         textAlign: "center",
