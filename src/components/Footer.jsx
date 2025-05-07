@@ -13,8 +13,13 @@ export default function Footer({ bgColor = "background.default" }) {
     >
       <Container maxWidth="lg">
         <Typography variant="body2" color="#E0E0E0">
-          &copy; {new Date().getFullYear()} RateMusic. All rights reserved.
+          &copy; {new Date().getFullYear()} SongScore. All rights reserved.
         </Typography>
+        <br />
+        <Typography variant="body2" color="#E0E0E0">
+          Built with ❤️ by Muhammad Hassan
+        </Typography>
+
         <Stack direction="row" spacing={3} justifyContent="center" mt={2}>
           <Link
             href="#"
