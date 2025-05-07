@@ -2,6 +2,7 @@ import Button from "./Button";
 import { Box, Typography, Container } from "@mui/material";
 
 export default function HeroBanner() {
+  const serverURL = import.meta.env.VITE_SERVER_URI || "http://localhost:3069";
   return (
     <Box
       sx={{
@@ -37,6 +38,10 @@ export default function HeroBanner() {
         </Typography>
 
         <Button
+          onClick={() => {
+            console.log("Redirecting to login...");
+            window.location.href = serverURL + "/auth/login";
+          }}
           sx={{
             px: 4,
             py: 2,

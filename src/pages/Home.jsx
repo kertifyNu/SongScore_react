@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Container,
@@ -12,96 +12,231 @@ import {
   Chip,
 } from "@mui/material";
 import Footer from "../components/Footer";
+import { navigate } from "wouter/use-hash-location";
+import { Link } from "wouter";
+
+const serverURL = "http://localhost:3069";
 // Mock data (would normally come from Spotify API)
-const userData = {
-  name: "Alex Johnson",
-  username: "musiclover42",
-  profilePic: "/api/placeholder/150/150",
-  totalRatings: 342,
-  following: 87,
-  followers: 124,
-};
 
-const topArtists = [
-  {
-    id: 1,
-    name: "The Weeknd",
-    image: "/api/placeholder/300/300",
-    genres: ["R&B", "Pop"],
-    ratings: 4.8,
-  },
-  {
-    id: 2,
-    name: "Kendrick Lamar",
-    image: "/api/placeholder/300/300",
-    genres: ["Hip-Hop", "Rap"],
-    ratings: 4.9,
-  },
-  {
-    id: 3,
-    name: "Dua Lipa",
-    image: "/api/placeholder/300/300",
-    genres: ["Pop", "Dance"],
-    ratings: 4.7,
-  },
-  {
-    id: 4,
-    name: "Arctic Monkeys",
-    image: "/api/placeholder/300/300",
-    genres: ["Indie Rock", "Alternative"],
-    ratings: 4.8,
-  },
-];
-
-const topSongs = [
-  {
-    id: 1,
-    title: "Blinding Lights",
-    artist: "The Weeknd",
-    album: "After Hours",
-    image: "/api/placeholder/80/80",
-    duration: "3:20",
-    ratings: 4.9,
-  },
-  {
-    id: 2,
-    title: "HUMBLE.",
-    artist: "Kendrick Lamar",
-    album: "DAMN.",
-    image: "/api/placeholder/80/80",
-    duration: "2:57",
-    ratings: 4.8,
-  },
-  {
-    id: 3,
-    title: "Levitating",
-    artist: "Dua Lipa",
-    album: "Future Nostalgia",
-    image: "/api/placeholder/80/80",
-    duration: "3:23",
-    ratings: 4.7,
-  },
-  {
-    id: 4,
-    title: "Do I Wanna Know?",
-    artist: "Arctic Monkeys",
-    album: "AM",
-    image: "/api/placeholder/80/80",
-    duration: "4:32",
-    ratings: 4.9,
-  },
-  {
-    id: 5,
-    title: "Save Your Tears",
-    artist: "The Weeknd",
-    album: "After Hours",
-    image: "/api/placeholder/80/80",
-    duration: "3:35",
-    ratings: 4.7,
-  },
-];
+// const topSongs = [
+//   {
+//     id: 1,
+//     title: "Blinding Lights",
+//     artist: "The Weeknd",
+//     album: "After Hours",
+//     image: "/api/placeholder/80/80",
+//     duration: "3:20",
+//     ratings: 4.9,
+//   },
+//   {
+//     id: 2,
+//     title: "HUMBLE.",
+//     artist: "Kendrick Lamar",
+//     album: "DAMN.",
+//     image: "/api/placeholder/80/80",
+//     duration: "2:57",
+//     ratings: 4.8,
+//   },
+//   {
+//     id: 3,
+//     title: "Levitating",
+//     artist: "Dua Lipa",
+//     album: "Future Nostalgia",
+//     image: "/api/placeholder/80/80",
+//     duration: "3:23",
+//     ratings: 4.7,
+//   },
+//   {
+//     id: 4,
+//     title: "Do I Wanna Know?",
+//     artist: "Arctic Monkeys",
+//     album: "AM",
+//     image: "/api/placeholder/80/80",
+//     duration: "4:32",
+//     ratings: 4.9,
+//   },
+//   {
+//     id: 5,
+//     title: "Save Your Tears",
+//     artist: "The Weeknd",
+//     album: "After Hours",
+//     image: "/api/placeholder/80/80",
+//     duration: "3:35",
+//     ratings: 4.7,
+//   },
+// ];
 
 export default function HomePage() {
+  const [token, setToken] = React.useState();
+  const [topSongs, setTopSongs] = React.useState([]);
+  const [topArtists, setTopArtists] = React.useState([
+    {
+      id: 1,
+      name: "The Weeknd",
+      image: "/api/placeholder/300/300",
+      genres: ["R&B", "Pop"],
+      ratings: 4.8,
+    },
+    {
+      id: 2,
+      name: "Kendrick Lamar",
+      image: "/api/placeholder/300/300",
+      genres: ["Hip-Hop", "Rap"],
+      ratings: 4.9,
+    },
+    {
+      id: 3,
+      name: "Dua Lipa",
+      image: "/api/placeholder/300/300",
+      genres: ["Pop", "Dance"],
+      ratings: 4.7,
+    },
+    {
+      id: 4,
+      name: "Arctic Monkeys",
+      image: "/api/placeholder/300/300",
+      genres: ["Indie Rock", "Alternative"],
+      ratings: 4.8,
+    },
+  ]);
+  const [userData, setUserData] = React.useState({
+    name: "Alex Johnson",
+    username: "musiclover42",
+    profilePic: "/api/placeholder/150/150",
+    totalRatings: 342,
+    following: 87,
+    followers: 124,
+  });
+  async function fetchWebApi(endpoint, method, body) {
+    console.log("token: ", token);
+    if (!token) {
+      console.error("No token provided");
+      return;
+    }
+    const res = await fetch(`https://api.spotify.com/${endpoint}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method,
+      body: JSON.stringify(body),
+    });
+    return await res.json();
+  }
+  async function getTopTracks() {
+    // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
+    return (
+      await fetchWebApi("v1/me/top/tracks?time_range=short_term&limit=5", "GET")
+    ).items;
+  }
+  async function getTopArtists() {
+    // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
+    return (
+      await fetchWebApi(
+        "v1/me/top/artists?time_range=short_term&limit=5",
+        "GET"
+      )
+    ).items;
+  }
+  async function getUserData() {
+    // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-current-users-profile
+    return await fetchWebApi("v1/me", "GET");
+  }
+  async function setUser() {
+    const user = await getUserData();
+    console.log("User Data: ", user);
+    setUserData({
+      name: user.display_name,
+      username: user.id,
+      profilePic: user.images[0].url,
+      totalRatings: 342,
+      following: 87,
+      followers: user.followers.total,
+      href: user.external_urls.spotify,
+    });
+  }
+  async function setArtists() {
+    const topArtists = await getTopArtists();
+    console.log("Top Artists: ", topArtists);
+    console.log(
+      topArtists?.map(({ name, genres }) => `${name} - ${genres.join(", ")}`)
+    );
+    setTopArtists(
+      topArtists?.map((artist) => ({
+        id: artist.id,
+        name: artist.name,
+        image: artist.images[0].url,
+        genres: artist.genres,
+        ratings: ((artist.popularity / 100) * 5).toFixed(1),
+      }))
+    );
+  }
+  async function setTopTracks() {
+    const topTracks = await getTopTracks();
+    console.log("Top Tracks: ", topTracks);
+    console.log(
+      topTracks?.map(
+        ({ name, artists }) =>
+          `${name} by ${artists.map((artist) => artist.name).join(", ")}`
+      )
+    );
+    setTopSongs(
+      topTracks?.map((track) => ({
+        id: track.id,
+        title: track.name,
+        artist: track.artists[0].name,
+        album: track.album.name,
+        image: track.album.images[0].url,
+        duration: `${Math.floor(track.duration_ms / 60000)}:${Math.floor(
+          (track.duration_ms % 60000) / 1000
+        )
+          .toString()
+          .padStart(2, "0")}`,
+        ratings: ((track.popularity / 100) * 5).toFixed(1),
+        href: track.external_urls.spotify,
+      }))
+    );
+  }
+  useEffect(() => {
+    //get data from cookies
+    const cookies = document.cookie.split("; ");
+    const cookieObj = {};
+    cookies.forEach((cookie) => {
+      const [name, value] = cookie.split("=");
+      cookieObj[name] = decodeURIComponent(value);
+    });
+    console.log("cookies: ", cookieObj);
+    //check if user is logged in
+    if (!cookieObj.access_token) {
+      console.log("User not logged in, redirecting to login page...");
+      navigate("/auth/login");
+    } else {
+      console.log("User is logged in, access token: ", cookieObj.access_token);
+      const t = cookieObj.access_token;
+      setToken(t);
+      console.log("accToken set: ", cookieObj.access_token);
+      if (token) console.log("Token set: ", token);
+    }
+  }, []);
+  useEffect(() => {
+    const run = async () => {
+      console.log("Fetching top tracks...");
+      await setTopTracks();
+      console.log("Top tracks fetched successfully.");
+      console.log("Fetching top artists...");
+      await setArtists();
+      console.log("Top artists fetched successfully.");
+      console.log("Fetching user data...");
+      await setUser();
+      console.log("User data fetched successfully.");
+    };
+    if (token) {
+      console.log("Token is set, fetching top tracks...");
+      run();
+    } else {
+      console.log("Token is not set, skipping fetch.");
+    }
+    // run();
+  }, [token]);
   return (
     <Box sx={{ bgcolor: "#121212", color: "white", minHeight: "100vh" }}>
       {/* Hero Section */}
@@ -128,12 +263,17 @@ export default function HomePage() {
           </Typography>
           <Button
             variant="contained"
+            onClick={() => {
+              console.log("Redirecting to login...");
+              window.location.href = serverURL + "/auth/login";
+            }}
             sx={{
               bgcolor: "#121212",
               "&:hover": { bgcolor: "#333" },
               fontWeight: 600,
               px: 3,
               py: 1,
+              color: "#f1f1f1",
             }}
           >
             Get Started Now
@@ -156,6 +296,7 @@ export default function HomePage() {
           <Avatar
             src={userData.profilePic}
             alt={userData.name}
+            onClick={() => window.open(userData.href, "_blank")}
             sx={{
               width: 120,
               height: 120,
@@ -233,6 +374,8 @@ export default function HomePage() {
                   "&:hover": {
                     transform: "translateY(-8px)",
                   },
+                  maxWidth: 200,
+                  height: 350,
                 }}
               >
                 <CardMedia
@@ -335,7 +478,9 @@ export default function HomePage() {
                     sx={{ width: 50, height: 50, mr: 2 }}
                     image={song.image}
                     alt={song.title}
+                    onClick={() => window.open(song.href, "_blank")}
                   />
+
                   <Box>
                     <Typography variant="body1" fontWeight={500}>
                       {song.title}
@@ -377,6 +522,7 @@ export default function HomePage() {
                   </Typography>
                   <Box
                     component="span"
+                    onClick={() => window.open(song.href, "_blank")}
                     sx={{
                       color: "#00c853",
                       fontSize: "1.5rem",
