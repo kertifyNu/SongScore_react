@@ -167,6 +167,7 @@ export default function HomePage() {
         image: artist.images[0].url,
         genres: artist.genres,
         ratings: ((artist.popularity / 100) * 5).toFixed(1),
+        href: artist.external_urls.spotify,
       }))
     );
   }
@@ -301,6 +302,7 @@ export default function HomePage() {
               width: 120,
               height: 120,
               border: "3px solid #00c853",
+              cursor: "pointer",
             }}
           />
           <Box>
@@ -363,7 +365,16 @@ export default function HomePage() {
           </Box>
           Your Top Artists
         </Typography>
-        <Grid container spacing={3} mb={6}>
+        <Grid
+          container
+          spacing={3}
+          mb={6}
+          sx={{
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           {topArtists.map((artist) => (
             <Grid item xs={12} sm={6} md={3} key={artist.id}>
               <Card
@@ -374,6 +385,8 @@ export default function HomePage() {
                   "&:hover": {
                     transform: "translateY(-8px)",
                   },
+
+                  cursor: "pointer",
                   maxWidth: 200,
                   height: 350,
                 }}
@@ -381,6 +394,7 @@ export default function HomePage() {
                 <CardMedia
                   component="img"
                   height="200"
+                  onClick={() => window.open(artist.href, "_blank")}
                   image={artist.image}
                   alt={artist.name}
                 />
