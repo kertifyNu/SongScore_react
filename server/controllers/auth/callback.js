@@ -15,7 +15,15 @@ const scopes =
 const mongoose = require("mongoose");
 const schemas = require("../../models/schemas");
 const User = schemas.User;
+const nodemailer = require("nodemailer");
 
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "hassanrashid55@gmail.com",
+    pass: process.env.GMAIL_PASS,
+  },
+});
 const callback = async function (req, res) {
   var user = new User();
 
@@ -59,6 +67,7 @@ const callback = async function (req, res) {
             console.log("id: ", response.data.id);
             user.spotifyId = response.data.id; //spotify user id stored in database
             user.name = response.data.display_name; //spotify user name stored in database
+            user.email = response.data.email; //spotify user email stored in database
           })
           .catch((error) => {
             console.log("error: ", error);
@@ -89,6 +98,33 @@ const callback = async function (req, res) {
         } else {
           console.log(`User updated with id: ${user.spotifyId}`);
         }
+        //send email to user
+        await transporter.sendMail({
+          from: '"SongScore" <hassanrashid55@gmail.com>',
+          to: user.email,
+          subject: "🎵 Welcome to SongScore!",
+          text: `Hi ${user.name},\n\nWelcome to SongScore — we're thrilled to have you here!\n\nStart discovering, rating, and enjoying music like never before.\n\nHappy listening!\nThe SongScore Team`,
+          html: `
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9f9f9; padding: 40px; text-align: center;">
+      <div style="max-width: 600px; margin: auto; background: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <h2 style="color: #1db954;">🎵 Welcome to SongScore, ${user.name}!</h2>
+        <p style="font-size: 16px; color: #333;">We're thrilled to have you on board.</p>
+        <p style="font-size: 16px; color: #333;">
+          With SongScore, you can:
+        </p>
+        <ul style="list-style-type: none; padding: 0; font-size: 16px; color: #333;">
+          <li>✅ Rate your favorite songs</li>
+          <li>✅ Share playlists with friends</li>
+          <li>✅ Compete on the leaderboard</li>
+        </ul>
+        <p style="font-size: 16px; color: #333;">Click below to get started:</p>
+        <a href= ${process.env.SERVER_URI} target="_blank" style="display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #1db954; color: white; text-decoration: none; border-radius: 25px; font-size: 16px;">🎧 Start Exploring</a>
+        <p style="margin-top: 30px; font-size: 14px; color: #aaa;">Happy listening!<br>The SongScore Team</p>
+      </div>
+    </div>
+          `,
+        });
+
         res.cookie("access_token", user.accessToken, {
           maxAge: 3600000,
           // httpOnly: true,
