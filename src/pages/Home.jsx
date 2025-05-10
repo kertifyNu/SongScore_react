@@ -270,9 +270,11 @@ export default function HomePage() {
             sx={{
               bgcolor: "#121212",
               "&:hover": { bgcolor: "#333" },
-              fontWeight: 600,
+              //fontWeight: 400,
               px: 3,
               py: 1,
+              fontSize: { xs: "1rem", sm: "1.125rem" },
+              // fontFamily: "Inter",
               color: "#f1f1f1",
             }}
           >

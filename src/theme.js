@@ -44,10 +44,11 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: "50px",
-          padding: "8px 24px",
-          fontFamily: '"Franie", "sans-serif"',
+          padding: "",
+          fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
           fontSize: "16px",
-          fontWeight: 600,
+          fontWeight: 300,
+          fontStyle: "bold",
         },
       },
     },

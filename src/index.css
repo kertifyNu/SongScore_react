@@ -1,8 +1,17 @@
 @import "tailwindcss";
+@plugin "daisyui";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-body {
-  font-family: "Inter", sans-serif;
+@font-face {
+  font-family: "Franie";
+  src: url("/fonts/franie/FranieRegular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Franie";
+  src: url("/fonts/franie/FranieSemiBold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
 }
