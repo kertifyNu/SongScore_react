@@ -11,9 +11,9 @@ export default function FeatureCard({ title, description, imageSrc, altText }) {
   return (
     <Card
       sx={{
-        width: "100%", // Added width constraint
+        width: "350px", // Added width constraint
         backgroundColor: "#1E1E1E",
-        height: "100%",
+        height: "400px",
         transition: "transform 0.2s",
         "&:hover": {
           transform: "translateY(-5px)",
@@ -54,7 +54,7 @@ export default function FeatureCard({ title, description, imageSrc, altText }) {
           {description}
         </Typography>
         <Box sx={{ mt: "auto" }}>
-          <Link
+          {/* <Link
             href="#"
             color="primary"
             underline="none"
@@ -64,7 +64,7 @@ export default function FeatureCard({ title, description, imageSrc, altText }) {
             }}
           >
             Learn more &rarr;
-          </Link>
+          </Link> */}
         </Box>
       </CardContent>
     </Card>

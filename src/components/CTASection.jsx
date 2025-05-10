@@ -17,7 +17,7 @@ export default function CTASection() {
         </Typography>
         <Typography variant="body2" mb={4}>
           Join thousands of music lovers already rating and discovering new
-          music with RateMusic.
+          music with SongScore.
         </Typography>
 
         <CustomButton variant="outlined">Create an Account</CustomButton>
