@@ -6,10 +6,21 @@ const CustomButton = ({
   children,
   variant = "contained",
   color = "primary",
-  size = "medium",
+  size = "large",
 }) => {
   return (
-    <Button variant={variant} color={color} size={size} onClick={onClick}>
+    <Button
+      variant={variant}
+      color={color}
+      size={size}
+      onClick={onClick}
+      sx={{
+        borderRadius: "50px",
+        padding: "8px 24px",
+        fontFamily: "Inter, sans-serif",
+        font: "16px",
+      }}
+    >
       {children}
     </Button>
   );

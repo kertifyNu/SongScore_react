@@ -1,30 +1,25 @@
-import { Switch, Route } from "wouter";
-//import { queryClient } from "./lib/queryClient";
-//import { QueryClientProvider } from "@tanstack/react-query";
-//import NotFound from "@/pages/not-found";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import theme from "./theme";
+
 import Landing from "@/pages/Landing";
 import Home from "@/pages/Home";
-
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Landing} />
-      <Route path="/home" component={Home} />
-      {/* <Route /> */}
-    </Switch>
-  );
-}
+import User from "@/pages/User/User";
 
 function App() {
   return (
-    //<QueryClientProvider client={queryClient}>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/user/:id" element={<User />} />
+          {/* Add a 404 fallback if needed */}
+          {/* <Route path="*" element={<NotFound />} /> */}
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
-    // </QueryClientProvider>
   );
 }
 

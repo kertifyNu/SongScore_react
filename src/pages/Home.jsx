@@ -12,8 +12,7 @@ import {
   Chip,
 } from "@mui/material";
 import Footer from "../components/Footer";
-import { navigate } from "wouter/use-hash-location";
-import { Link } from "wouter";
+import { useNavigate } from "react-router-dom";
 
 const serverURL = "http://localhost:3069";
 // Mock data (would normally come from Spotify API)
@@ -67,6 +66,7 @@ const serverURL = "http://localhost:3069";
 // ];
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [token, setToken] = React.useState();
   const [topSongs, setTopSongs] = React.useState([]);
   const [topArtists, setTopArtists] = React.useState([
@@ -265,8 +265,7 @@ export default function HomePage() {
           <Button
             variant="contained"
             onClick={() => {
-              console.log("Redirecting to login...");
-              window.location.href = serverURL + "/auth/login";
+              navigate("/user/" + userData.username);
             }}
             sx={{
               bgcolor: "#121212",

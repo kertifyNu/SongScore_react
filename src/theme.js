@@ -38,10 +38,6 @@ const theme = createTheme({
     body2: {
       fontSize: "0.875rem",
     },
-    button: {
-      textTransform: "none",
-      fontWeight: 600,
-    },
   },
   components: {
     MuiButton: {
@@ -49,6 +45,9 @@ const theme = createTheme({
         root: {
           borderRadius: "50px",
           padding: "8px 24px",
+          fontFamily: '"Franie", "sans-serif"',
+          fontSize: "16px",
+          fontWeight: 600,
         },
       },
     },
@@ -57,8 +56,7 @@ const theme = createTheme({
         backgroundColor: "#1E1E1E",
         transition: "transform 0.2s",
         height: "100%", // Add this to ensure equal height
-        display: "flex", // Add flex display
-        flexDirection: "column", // Stack content vertically
+
         "&:hover": {
           transform: "translateY(-5px)",
         },
