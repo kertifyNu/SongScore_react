@@ -7,6 +7,10 @@ const ratingSessionSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+    },
     songs: [
       {
         songId: {

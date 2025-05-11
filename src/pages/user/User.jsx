@@ -62,6 +62,7 @@ const VerifyUserPage = () => {
   const modalRef = React.useRef(null);
   const [songs, setSongs] = React.useState([]);
   const [rates, setRates] = useState([]);
+  const [sessionTitle, setSessionTitle] = useState("");
   const [sessionId, setSessionId] = useState("");
   const [link, setLink] = useState("");
   const navigate = useNavigate(); // Initialize the useNavigate hook
@@ -99,6 +100,7 @@ const VerifyUserPage = () => {
     try {
       const data = {
         spotifyId: id,
+        name: sessionTitle,
         songs,
       };
       const config = {
@@ -135,6 +137,17 @@ const VerifyUserPage = () => {
               <span className="text-amber-300"> your </span>
               preference{" "}
             </h1>{" "}
+          </div>
+          <div className="text-center text-2xl m-4 font-franie text-green-600">
+            <h1>
+              Session Name:{" "}
+              <input
+                type="text"
+                className="input w-[20rem] max-sm:w-[15rem] px-2 py-1 rounded"
+                onChange={(e) => setSessionTitle(e.target.value)}
+                placeholder="Enter session name"
+              />
+            </h1>
           </div>
           <div className="flex flex-col md:flex-row gap-7 justify-center items-center flex-wrap max-w-[75rem] my-7 mx-auto">
             {songs.map((song) => (

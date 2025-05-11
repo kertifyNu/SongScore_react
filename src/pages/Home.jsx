@@ -99,6 +99,16 @@ export default function HomePage() {
       ratings: 4.8,
     },
   ]);
+  const leaderboardLinks = [
+    {
+      title: "Session with Friends",
+      url: "https://example.com/leaderboard/abc123",
+    },
+    {
+      title: "Guess Party Round 2",
+      url: "https://example.com/leaderboard/xyz789",
+    },
+  ];
   const [userData, setUserData] = React.useState({
     name: "Alex Johnson",
     username: "musiclover42",
@@ -348,6 +358,59 @@ export default function HomePage() {
             </Box>
           </Box>
         </Box>
+        {/* Your Leaderboard Links Section */}
+        <Typography
+          variant="h5"
+          component="h2"
+          fontWeight={600}
+          mb={3}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+          }}
+        >
+          <Box component="span" sx={{ color: "#00c853", fontSize: "1.2rem" }}>
+            🏆
+          </Box>
+          Your Leaderboard Links
+        </Typography>
+
+        <Grid
+          container
+          spacing={2}
+          mb={6}
+          sx={{
+            alignItems: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {leaderboardLinks.map((link, index) => (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card
+                sx={{
+                  bgcolor: "#1e1e1e",
+                  color: "white",
+                  padding: 2,
+                  transition: "transform 0.3s",
+                  "&:hover": {
+                    transform: "translateY(-5px)",
+                  },
+                  cursor: "pointer",
+                }}
+                onClick={() => window.open(link.url, "_blank")}
+              >
+                <Typography variant="body1" fontWeight={500}>
+                  {link.title}
+                </Typography>
+                <Typography variant="body2" color="gray">
+                  {link.url}
+                </Typography>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
 
         {/* Top Artists Section */}
         <Typography

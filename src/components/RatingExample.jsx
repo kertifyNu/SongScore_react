@@ -33,7 +33,7 @@ export default function RatingExample({ artist, album, rating, imageUrl }) {
   };
 
   return (
-    <div className="bg-background rounded-lg p-4 flex items-center space-x-4">
+    <div className="bg-[#0f0f0f] rounded-lg p-4 flex items-center space-x-4">
       <div className="h-16 w-16 flex-shrink-0 bg-[#1A1A1A] rounded overflow-hidden">
         <img
           src={imageUrl}

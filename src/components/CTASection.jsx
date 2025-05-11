@@ -2,6 +2,7 @@ import { Box, Typography, Container } from "@mui/material";
 import CustomButton from "./Button";
 
 export default function CTASection() {
+  const serverURL = import.meta.env.VITE_APP_SERVER_URI;
   return (
     <Box
       component="section"
@@ -20,7 +21,15 @@ export default function CTASection() {
           music with SongScore.
         </Typography>
 
-        <CustomButton variant="outlined">Create an Account</CustomButton>
+        <CustomButton
+          onClick={() => {
+            console.log("Redirecting to login...");
+            window.location.href = serverURL + "/auth/login";
+          }}
+          variant="outlined"
+        >
+          Create an Account
+        </CustomButton>
       </Container>
     </Box>
   );

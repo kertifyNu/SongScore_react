@@ -39,6 +39,13 @@ const LeaderboardPage = () => {
         <div className="text-4xl m-4 flex items-center justify-center font-franie text-green-600 text-center">
           <h1>Leaderboard</h1>
         </div>
+        <div className="text-2xl m-4 flex items-center justify-center font-franie text-green-600 text-center">
+          <h1>Session Name: &nbsp;</h1>{" "}
+          <span className="text-amber-300">
+            {" "}
+            {" " + leads[0]?.sessionId?.name}{" "}
+          </span>
+        </div>
 
         <div className="flex justify-center items-center">
           <div className="flex items-center gap-4 text-white">
@@ -66,6 +73,7 @@ const LeaderboardPage = () => {
               </thead>
               <tbody>
                 {leads
+                  .filter((lead) => lead.name !== "dummyentry4250") // Skip current user's entry
                   .sort((a, b) => b.accuracyScore - a.accuracyScore)
                   .map((lead, index) => (
                     <tr key={lead.sessionid}>

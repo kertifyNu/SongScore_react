@@ -52,7 +52,7 @@ export default function FeaturesSection() {
             fontSize: { xs: "1.75rem", md: "2rem" },
           }}
         >
-          Why RateMusic?
+          Why SongScore?
         </Typography>
         <Grid
           container

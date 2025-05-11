@@ -20,6 +20,7 @@ const ratings = [
 ];
 
 export default function RatingsSection() {
+  const serverURL = import.meta.env.VITE_APP_SERVER_URI;
   return (
     <Box sx={{ bgcolor: "#1E1E1E", py: 8, px: { xs: 2, md: 4 } }}>
       <Container maxWidth="lg">
@@ -45,7 +46,14 @@ export default function RatingsSection() {
         </Grid>
 
         <Box sx={{ textAlign: "center" }}>
-          <CustomButton>Start Rating Now</CustomButton>
+          <CustomButton
+            onClick={() => {
+              console.log("Redirecting to login...");
+              window.location.href = serverURL + "/auth/login";
+            }}
+          >
+            Start Rating Now
+          </CustomButton>
         </Box>
       </Container>
     </Box>
