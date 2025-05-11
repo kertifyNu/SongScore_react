@@ -1,6 +1,23 @@
 import { Box, Container, Typography, Link, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import React from "react";
 
 export default function Footer({ bgColor = "background.default" }) {
+  const navigate = useNavigate();
+
+  // Handler functions to navigate to specific tabs in the About page
+  const handleNavigateToPrivacy = () => {
+    navigate("/about", { state: { activeTab: 1 } });
+  };
+
+  const handleNavigateToTerms = () => {
+    navigate("/about", { state: { activeTab: 0 } });
+  };
+
+  const handleNavigateToContact = () => {
+    navigate("/about", { state: { activeTab: 2 } });
+  };
+
   return (
     <Box
       component="footer"
@@ -22,7 +39,7 @@ export default function Footer({ bgColor = "background.default" }) {
 
         <Stack direction="row" spacing={3} justifyContent="center" mt={2}>
           <Link
-            href="#"
+            onClick={handleNavigateToPrivacy}
             color="#E0E0E0"
             underline="none"
             sx={{
@@ -30,12 +47,13 @@ export default function Footer({ bgColor = "background.default" }) {
                 color: "white",
               },
               transition: "colors 0.2s",
+              cursor: "pointer",
             }}
           >
             Privacy Policy
           </Link>
           <Link
-            href="#"
+            onClick={handleNavigateToTerms}
             color="#E0E0E0"
             underline="none"
             sx={{
@@ -43,12 +61,13 @@ export default function Footer({ bgColor = "background.default" }) {
                 color: "white",
               },
               transition: "colors 0.2s",
+              cursor: "pointer",
             }}
           >
             Terms of Service
           </Link>
           <Link
-            href="#"
+            onClick={handleNavigateToContact}
             color="#E0E0E0"
             underline="none"
             sx={{
@@ -56,6 +75,7 @@ export default function Footer({ bgColor = "background.default" }) {
                 color: "white",
               },
               transition: "colors 0.2s",
+              cursor: "pointer",
             }}
           >
             Contact Us
