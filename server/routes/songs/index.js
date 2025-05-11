@@ -3,6 +3,8 @@ const router = express.Router();
 const randomController = require("../../controllers/songs/random");
 const verifyUser = require("../../middleware/verifyUser");
 const rateController = require("../../controllers/songs/rate");
+const rateSessionController = require("../../controllers/songs/allRateSessions");
 router.post("/random", verifyUser, randomController);
 router.post("/rate", verifyUser, rateController);
+router.get("/rate/all/:id", rateSessionController);
 module.exports = router;

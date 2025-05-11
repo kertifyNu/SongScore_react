@@ -68,6 +68,7 @@ const serverURL = "http://localhost:3069";
 export default function HomePage() {
   const navigate = useNavigate();
   const [token, setToken] = React.useState();
+  const [id, setId] = React.useState();
   const [topSongs, setTopSongs] = React.useState([]);
   const [topArtists, setTopArtists] = React.useState([
     {
@@ -99,7 +100,17 @@ export default function HomePage() {
       ratings: 4.8,
     },
   ]);
-  const leaderboardLinks = [
+  // const leaderboardLinks = [
+  //   {
+  //     title: "Session with Friends",
+  //     url: "https://example.com/leaderboard/abc123",
+  //   },
+  //   {
+  //     title: "Guess Party Round 2",
+  //     url: "https://example.com/leaderboard/xyz789",
+  //   },
+  // ];
+  const [leaderboardLinks, setLeaderboardLinks] = React.useState([
     {
       title: "Session with Friends",
       url: "https://example.com/leaderboard/abc123",
@@ -108,7 +119,7 @@ export default function HomePage() {
       title: "Guess Party Round 2",
       url: "https://example.com/leaderboard/xyz789",
     },
-  ];
+  ]);
   const [userData, setUserData] = React.useState({
     name: "Alex Johnson",
     username: "musiclover42",
@@ -117,6 +128,21 @@ export default function HomePage() {
     following: 87,
     followers: 124,
   });
+  const fetchLeaderboards = async () => {
+    try {
+      const response = await fetch(`${serverURL}/songs/rate/all/${id}`);
+      const data = response.data;
+      const leaderboardData = data.map((item) => ({
+        title: item.name,
+        url: `${domain}/leaderboard/${item._id}`,
+      }));
+      setLeaderboardLinks(leaderboardData);
+      console.log("Leaderboard data fetched successfully:", leaderboardData);
+    } catch (error) {
+      console.error("Error fetching leaderboard data:", error);
+    }
+  };
+
   async function fetchWebApi(endpoint, method, body) {
     console.log("token: ", token);
     if (!token) {
@@ -223,13 +249,18 @@ export default function HomePage() {
     } else {
       console.log("User is logged in, access token: ", cookieObj.access_token);
       const t = cookieObj.access_token;
+      const id = cookieObj.spotifyId;
       setToken(t);
+      setId(id);
       console.log("accToken set: ", cookieObj.access_token);
       if (token) console.log("Token set: ", token);
     }
   }, []);
   useEffect(() => {
     const run = async () => {
+      console.log("Fetching leaderboards...");
+      await fetchLeaderboards();
+      console.log("Leaderboards fetched successfully.");
       console.log("Fetching top tracks...");
       await setTopTracks();
       console.log("Top tracks fetched successfully.");
