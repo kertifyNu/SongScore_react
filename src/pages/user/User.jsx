@@ -10,9 +10,10 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CustomButton from "../../components/Button";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
+import Footer from "@/components/Footer"; // Import the Footer component
 //import { useRouter } from "next/navigation"; // Import the useRouter hook
 //const domain = "https://3.7.248.219";
-const domain = "http://localhost:3069";
+const domain = import.meta.env.VITE_APP_SERVER_URI || "http://localhost:3069";
 
 // const [rates, setRates] = React.useState<rate[]>([]);
 
@@ -125,96 +126,101 @@ const VerifyUserPage = () => {
     navigate(`/leaderboard/${sessionId}`);
   };
   return (
-    <div className="p-2">
-      <div className="text-3xl m-4 font-franie text-green-600 text-center">
-        <h1>
-          Rate the songs according to
-          <span className="text-amber-300"> your </span>
-          preference{" "}
-        </h1>{" "}
-      </div>
-      <div className="flex flex-col md:flex-row gap-7 justify-center items-center flex-wrap max-w-[75rem] my-7 mx-auto">
-        {songs.map((song) => (
-          <div key={song.trackid}>
-            <Spotify
-              link={"https://open.spotify.com/track/" + song.trackid}
-              height="352"
-              width="100%"
-              frameBorder="1"
-              theme="0"
-              style={{ borderRadius: "14px" }}
-              className="card-title"
-            />
-            <div className=" py-4 flex justify-center items-start ">
-              <StyledRating
-                name="customized-color"
-                defaultValue={-1}
-                getLabelText={(value) =>
-                  `${value} Heart${value !== 1 ? "s" : ""}`
-                }
-                size="large"
-                precision={1}
-                icon={<FavoriteIcon fontSize="inherit" />}
-                emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
-                onChange={(event, newValue) => {
-                  if (newValue !== null) {
-                    setRating(song.trackid, newValue);
-                  }
-                }}
-              />
-            </div>
+    <>
+      <div className="min-h-screen flex flex-col">
+        <div className="p-2">
+          <div className="text-3xl m-4 font-franie text-green-600 text-center">
+            <h1>
+              Rate the songs according to
+              <span className="text-amber-300"> your </span>
+              preference{" "}
+            </h1>{" "}
           </div>
-        ))}
-      </div>
-      <div className="flex justify-center items-start mb-10">
-        {/* <button
+          <div className="flex flex-col md:flex-row gap-7 justify-center items-center flex-wrap max-w-[75rem] my-7 mx-auto">
+            {songs.map((song) => (
+              <div key={song.trackid}>
+                <Spotify
+                  link={"https://open.spotify.com/track/" + song.trackid}
+                  height="352"
+                  width="100%"
+                  frameBorder="1"
+                  theme="0"
+                  style={{ borderRadius: "14px" }}
+                  className="card-title"
+                />
+                <div className=" py-4 flex justify-center items-start ">
+                  <StyledRating
+                    name="customized-color"
+                    defaultValue={-1}
+                    getLabelText={(value) =>
+                      `${value} Heart${value !== 1 ? "s" : ""}`
+                    }
+                    size="large"
+                    precision={1}
+                    icon={<FavoriteIcon fontSize="inherit" />}
+                    emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+                    onChange={(event, newValue) => {
+                      if (newValue !== null) {
+                        setRating(song.trackid, newValue);
+                      }
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-center items-start mb-10">
+            {/* <button
           className="btn btn-outline btn-success w-[7rem]"
           onClick={doneHandler}
         >
           Done
         </button> */}
-        <CustomButton
-          variant="contained"
-          color="success"
-          onClick={doneHandler}
-          className="w-[7rem] rounded-full "
-          // style={{
-          //   background: "linear-gradient(to right, #00C853, #3366FF)",
-          //   color: "#fff",
-          // }}
-        >
-          Done
-        </CustomButton>
-      </div>
-      <dialog ref={modalRef} className="modal sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            You have successfully rated the songs!!
-          </h3>
-          <pre className="py-4">here is a shareable link</pre>
-          <div className="flex items-center gap-4 text-white ">
-            <input
-              type="text"
-              value={link}
-              readOnly
-              className="input input-bordered w-full max-w-xs px-2 py-1 rounded"
-            />
+            <CustomButton
+              variant="contained"
+              color="success"
+              onClick={doneHandler}
+              className="w-[7rem] rounded-full "
+              // style={{
+              //   background: "linear-gradient(to right, #00C853, #3366FF)",
+              //   color: "#fff",
+              // }}
+            >
+              Done
+            </CustomButton>
+          </div>
+          <dialog ref={modalRef} className="modal sm:modal-middle">
+            <div className="modal-box">
+              <h3 className="font-bold text-lg">
+                You have successfully rated the songs!!
+              </h3>
+              <pre className="py-4">here is a shareable link</pre>
+              <div className="flex items-center gap-4 text-white ">
+                <input
+                  type="text"
+                  value={link}
+                  readOnly
+                  className="input input-bordered w-full max-w-xs px-2 py-1 rounded"
+                />
 
-            <a onClick={copyToClipboard} className="btn">
-              <ContentCopyIcon />
-            </a>
-          </div>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn" onClick={closeBtnHandler}>
-                Close
-              </button>
-            </form>
-          </div>
+                <a onClick={copyToClipboard} className="btn">
+                  <ContentCopyIcon />
+                </a>
+              </div>
+              <div className="modal-action">
+                <form method="dialog">
+                  {/* if there is a button in form, it will close the modal */}
+                  <button className="btn" onClick={closeBtnHandler}>
+                    Close
+                  </button>
+                </form>
+              </div>
+            </div>
+          </dialog>
         </div>
-      </dialog>
-    </div>
+      </div>
+      <Footer className="mt-auto bg-gray-800" bgColor="#2D2D2D" />
+    </>
   );
 };
 
