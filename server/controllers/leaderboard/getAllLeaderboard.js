@@ -13,7 +13,7 @@ const getLeaderboard = async (req, res) => {
       res.status(404).send({ error: "Leaderboard not found" });
       return;
     }
-    console.log(leaderboards);
+    console.log("Leaderboards: ",leaderboards);
     res.send(leaderboards);
   } catch (err) {
     console.log(err);

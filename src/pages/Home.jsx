@@ -14,7 +14,8 @@ import {
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
-const serverURL = "http://localhost:3069";
+const serverURL = import.meta.env.SERVER_URI || "http://localhost:3069";
+const domain = "http://localhost:5173";
 // Mock data (would normally come from Spotify API)
 
 // const topSongs = [
@@ -128,10 +129,25 @@ export default function HomePage() {
     following: 87,
     followers: 124,
   });
-  const fetchLeaderboards = async () => {
+  const fetchUserId = async () => {
     try {
-      const response = await fetch(`${serverURL}/songs/rate/all/${id}`);
-      const data = response.data;
+      const response = await fetch(`${serverURL}/share/getUserId/${id}`);
+      const data = await response.json();
+      console.log("User ID fetched successfully:", data);
+      return data;
+    }
+    catch (error) {
+      console.error("Error fetching user ID:", error);
+    }
+  };
+  const fetchLeaderboards = async () => {
+    if(id === undefined) return;
+    const userId = await fetchUserId();
+    console.log("User ID: ", userId);
+    try {
+      const response = await fetch(`${serverURL}/songs/rate/all/${userId.id}`);
+      const data = await response.json();
+      console.log("Leaderboard data: ", data);
       const leaderboardData = data.map((item) => ({
         title: item.name,
         url: `${domain}/leaderboard/${item._id}`,
