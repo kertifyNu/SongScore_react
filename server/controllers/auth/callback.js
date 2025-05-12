@@ -16,7 +16,7 @@ const mongoose = require("mongoose");
 const schemas = require("../../models/schemas");
 const User = schemas.User;
 const nodemailer = require("nodemailer");
-
+const test = "dummy"
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
