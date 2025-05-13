@@ -1,12 +1,30 @@
-# React + Vite
+# 🎵 SongScore
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**SongScore** is a web-based app that lets users rate songs, guess how others rated them, and compete for the highest accuracy on a global leaderboard. It's a fun way to test how well you know your friends' music tastes!
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎧 **Rate Songs** – Select a playlist and give your ratings to each song.
+- 🕵️ **Guess Others' Ratings** – Try to guess how your friends or the public rated the same songs.
+- 🏆 **Leaderboard** – See how accurately you guessed and where you rank among others.
+- 🔗 **Sharable Sessions** – Create sessions and share links with friends to join the fun.
+- 📊 **Analytics** – View guess vs actual rating breakdowns and accuracy scores.
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend:** React, TailwindCSS, MaterialUI, DaisyUI
+- **Backend:** Node.js, Express
+- **Database:** MongoDB (Mongoose)
+- **Authentication:** (if applicable – e.g., JWT, OAuth)
+- **Music Integration:** Spotify API (for playlist and song metadata)
+
+## 📦 Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/kertifynu/songscore.git
+cd songscore
+npm install
+
+
