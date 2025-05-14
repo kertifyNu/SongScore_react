@@ -10,7 +10,12 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const port = 3069;
 dotenv.config();
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://song-score.vercel.app", // Your frontend domain
+    credentials: true, // Allow cookies to be sent
+  })
+);
 app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/songs", songRoutes);
