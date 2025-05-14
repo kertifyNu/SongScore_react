@@ -4,10 +4,10 @@ import theme from "./theme";
 
 import Landing from "@/pages/Landing";
 import Home from "@/pages/Home";
-import User from "@/pages/User/User";
+import User from "@/pages/user/User";
 import Leaderboard from "@/pages/Leaderboard/Leaderboard";
-import Guess from "@/pages/Guess/Guess";
-import About from "@/pages/About";
+import Guess from "@/pages/guess/Guess";
+import About from "@/pages/about";
 
 function App() {
   return (
