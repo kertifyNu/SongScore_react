@@ -127,28 +127,28 @@ const callback = async function (req, res) {
 
         res.cookie("access_token", user.accessToken, {
           maxAge: 3600000,
-          // httpOnly: true,
-          // secure: false,
+          HttpOnly: false,
+          secure: true,
         });
         res.cookie("refresh_token", user.refreshToken, {
           maxAge: 3600000,
-          // httpOnly: true,
-          // secure: false,
+          HttpOnly: false,
+          secure: true,
         });
         res.cookie("expires_in", user.expiresIn, {
           maxAge: 3600000,
-          // httpOnly: true,
-          // secure: false,
+          HttpOnly: false,
+          secure: true,
         });
         res.cookie("spotifyId", user.spotifyId, {
           maxAge: 3600000,
-          // httpOnly: true,
-          // secure: false,
+          HttpOnly: false,
+          secure: true,
         });
         res.cookie("name", user.name, {
           maxAge: 3600000,
-          // httpOnly: true,
-          // secure: false,
+          HttpOnly: false,
+          secure: true,
         });
 
         res.redirect(`${process.env.CLIENT_URI}/home/`);
