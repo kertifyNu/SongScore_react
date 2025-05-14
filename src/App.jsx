@@ -5,7 +5,7 @@ import theme from "./theme";
 import Landing from "@/pages/Landing";
 import Home from "@/pages/Home";
 import User from "@/pages/user/User";
-import Leaderboard from "@/pages/Leaderboard/Leaderboard";
+import Leaderboard from "@/pages/leaderboard/Leaderboard";
 import Guess from "@/pages/guess/Guess";
 import About from "@/pages/about";
 
