@@ -16,7 +16,7 @@ const mongoose = require("mongoose");
 const schemas = require("../../models/schemas");
 const User = schemas.User;
 const nodemailer = require("nodemailer");
-const test = "dummy"
+const test = "dummy";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -118,7 +118,7 @@ const callback = async function (req, res) {
           <li>✅ Compete on the leaderboard</li>
         </ul>
         <p style="font-size: 16px; color: #333;">Click below to get started:</p>
-        <a href= ${process.env.SERVER_URI} target="_blank" style="display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #1db954; color: white; text-decoration: none; border-radius: 25px; font-size: 16px;">🎧 Start Exploring</a>
+        <a href= ${process.env.CLIENT_URI} target="_blank" style="display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #1db954; color: white; text-decoration: none; border-radius: 25px; font-size: 16px;">🎧 Start Exploring</a>
         <p style="margin-top: 30px; font-size: 14px; color: #aaa;">Happy listening!<br>The SongScore Team</p>
       </div>
     </div>
@@ -151,7 +151,7 @@ const callback = async function (req, res) {
           // secure: false,
         });
 
-        res.redirect("http://localhost:5173/home/");
+        res.redirect(`${process.env.CLIENT_URI}/home/`);
 
         return;
       })
