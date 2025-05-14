@@ -131,21 +131,34 @@ export default function HomePage() {
   });
   const fetchUserId = async () => {
     try {
-      const response = await fetch(`${serverURL}/share/getUserId/${id}`);
+      const response = await fetch(`${serverURL}/share/getUserId/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+      });
       const data = await response.json();
       console.log("User ID fetched successfully:", data);
       return data;
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error fetching user ID:", error);
     }
   };
   const fetchLeaderboards = async () => {
-    if(id === undefined) return;
+    if (id === undefined) return;
     const userId = await fetchUserId();
     console.log("User ID: ", userId);
     try {
-      const response = await fetch(`${serverURL}/songs/rate/all/${userId.id}`);
+      const response = await fetch(`${serverURL}/songs/rate/all/${userId.id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+      });
       const data = await response.json();
       console.log("Leaderboard data: ", data);
       const leaderboardData = data.map((item) => ({
