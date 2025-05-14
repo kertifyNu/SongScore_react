@@ -28,7 +28,7 @@ export default function RatingsSection() {
           Your Music, Your Ratings
         </Typography>
         <Typography variant="body2" mb={5} sx={{ maxWidth: "600px" }}>
-          RateMusic allows you to create comprehensive music libraries organized
+          SongScore allows you to create comprehensive music libraries organized
           by your personal ratings, making it easier to rediscover favorites.
         </Typography>
 

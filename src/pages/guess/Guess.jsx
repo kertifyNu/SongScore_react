@@ -126,7 +126,7 @@ const GuessPage = () => {
                     }
                     size="large"
                     precision={1}
-                    icon={<FavoriteIcon fontSize="inherit" />}
+                    icon={<FavoriteIcon fontSize="large" />}
                     emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
                     onChange={(event, newValue) => {
                       if (newValue !== null) {
