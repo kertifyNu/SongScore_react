@@ -134,8 +134,8 @@ const callback = async function (req, res) {
           sameSite: "None",
           domain: process.env.SERVER_URI,
         });
-     
-        res.redirect(`${process.env.CLIENT_URI}/home/`);
+       res.redirect(`${process.env.CLIENT_URI}/home?spotifyId=${user.spotifyId}`);
+        // res.redirect(`${process.env.CLIENT_URI}/home/`);
 
         return;
       })
