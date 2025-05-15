@@ -15,7 +15,7 @@ import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
 const serverURL = import.meta.env.SERVER_URI || "http://localhost:3069";
-const domain = "http://localhost:5173";
+const domain = import.meta.env.CLIENT_URI || "http://localhost:5173";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -227,7 +227,18 @@ export default function HomePage() {
       console.error("Error fetching token:", error);
     }
   }
-
+  const setTokenFn = async (t) => {
+      const data = await getToken();
+    console.log("Token: ", data);
+    if (data.access_token) {
+      setToken(data.accessToken)
+      setId(data.spotifyId);
+      console.log("Token set: ", data.accessToken);
+    } else {
+      console.log("User not logged in, redirecting to login page...");
+      navigate("/auth/login");
+    }
+  };
   useEffect(() => {
     // //get data from cookies
     // const cookies = document.cookie.split("; ");
@@ -251,16 +262,8 @@ export default function HomePage() {
     //   if (token) console.log("Token set: ", token);
     // }
     //get token from backend
-    const data = getToken();
-    console.log("Token: ", data);
-    if (data.access_token) {
-      setToken(data.accessToken);
-      setId(data.spotifyId);
-      console.log("Token set: ", data.accessToken);
-    } else {
-      console.log("User not logged in, redirecting to login page...");
-      navigate("/auth/login");
-    }
+    setTokenFn();
+  
   }, []);
   useEffect(() => {
     const run = async () => {
