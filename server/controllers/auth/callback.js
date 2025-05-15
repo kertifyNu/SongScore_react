@@ -129,6 +129,7 @@ const callback = async function (req, res) {
           maxAge: 3600000,
           HttpOnly: false,
           secure: true,
+          sameSite: "None",
         });
         res.cookie("refresh_token", user.refreshToken, {
           maxAge: 3600000,
