@@ -17,7 +17,7 @@ app.use(
     origin: "https://song-score.vercel.app", // Your frontend domain
     credentials: true, // Allow cookies to be sent
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization","x-spotify-id"],
   })
 );
 
