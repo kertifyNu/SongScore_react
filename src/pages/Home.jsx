@@ -270,6 +270,16 @@ export default function HomePage() {
   
   }, []);
   useEffect(() => {
+  const params = new URLSearchParams(window.location.search);
+  const spotifyId = params.get('spotifyId');
+  if (spotifyId) {
+    console.log("hogyi set");
+    document.cookie = `spotifyId=${spotifyId}; path=/; secure; sameSite=None`;
+    // optionally remove query param from URL
+    window.history.replaceState({}, document.title, "/home");
+  }
+}, []);
+  useEffect(() => {
     const run = async () => {
       console.log("Fetching leaderboards...");
       await fetchLeaderboards();
