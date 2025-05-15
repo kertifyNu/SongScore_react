@@ -4,9 +4,10 @@ const db = require("../../models/schemas");
 const accessToken = async (req, res) => {
  //const id = cookies.get("spotifyId");
  //const id = req.cookies.spotifyId;
+ console.log("REQWEQ",req.headers);
  const id = req.headers['x-spotify-id'];
  console.log("hiiiiiiiiiiiiiiiiiii");
- console.log(req);
+ //console.log(req);
  //const id = "dummy"; // For testing purposes, replace with actual cookie retrieval
   if (!id) {
     console.log("Spotify ID not found in cookies");
