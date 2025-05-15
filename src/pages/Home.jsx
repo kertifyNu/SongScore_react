@@ -249,7 +249,7 @@ export default function HomePage() {
 
   useEffect(() => {
   if (id) {
-   const data= await getToken();
+   const data= getToken();
     if (data.access_token) {
       setToken(data.accessToken)
       setId(data.spotifyId);
