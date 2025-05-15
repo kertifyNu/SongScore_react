@@ -267,7 +267,7 @@ export default function HomePage() {
     //   if (token) console.log("Token set: ", token);
     // }
     //get token from backend
-    setTokenFn();
+    
   
   }, []);
   useEffect(() => {
@@ -280,6 +280,7 @@ export default function HomePage() {
     window.history.replaceState({}, document.title, "/home");
   }
   setId(spotifyId);
+  setTokenFn();
 }, []);
   useEffect(() => {
     const run = async () => {
