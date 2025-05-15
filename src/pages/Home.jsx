@@ -227,6 +227,7 @@ export default function HomePage() {
       console.error("Error fetching token:", error);
     }
   }
+
   useEffect(() => {
     // //get data from cookies
     // const cookies = document.cookie.split("; ");
@@ -250,7 +251,7 @@ export default function HomePage() {
     //   if (token) console.log("Token set: ", token);
     // }
     //get token from backend
-    const data = await getToken();
+    const data = getToken();
     console.log("Token: ", data);
     if (data.access_token) {
       setToken(data.accessToken);
