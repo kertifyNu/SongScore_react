@@ -216,6 +216,8 @@ export default function HomePage() {
   //get token from backend 
   const getToken = async () => {
     try {
+      
+      console.log("ID",id);
       const response = await fetch(`${serverURL}/auth/accessToken`, {
         method: "GET",
         credentials: "include",
@@ -244,32 +246,15 @@ export default function HomePage() {
       navigate("/auth/login");
     }
   };
+
   useEffect(() => {
-    // //get data from cookies
-    // const cookies = document.cookie.split("; ");
-    // const cookieObj = {};
-    // cookies.forEach((cookie) => {
-    //   const [name, value] = cookie.split("=");
-    //   cookieObj[name] = decodeURIComponent(value);
-    // });
-    // console.log("cookies: ", cookieObj);
-    // //check if user is logged in
-    // if (!cookieObj.access_token) {
-    //   console.log("User not logged in, redirecting to login page...");
-    //   navigate("/auth/login");
-    // } else {
-    //   console.log("User is logged in, access token: ", cookieObj.access_token);
-    //   const t = cookieObj.access_token;
-    //   const id = cookieObj.spotifyId;
-    //   setToken(t);
-    //   setId(id);
-    //   console.log("accToken set: ", cookieObj.access_token);
-    //   if (token) console.log("Token set: ", token);
-    // }
-    //get token from backend
-    
+  if (id) {
+    getToken();
+  }
+  else{console.log("poop");}
+}, [id]);
   
-  }, []);
+  
   useEffect(() => {
   const params = new URLSearchParams(window.location.search);
   const spotifyId = params.get('spotifyId');
@@ -280,7 +265,7 @@ export default function HomePage() {
     window.history.replaceState({}, document.title, "/home");
   }
   setId(spotifyId);
-  setTokenFn();
+  
 }, []);
   useEffect(() => {
     const run = async () => {
