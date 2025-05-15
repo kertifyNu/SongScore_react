@@ -132,6 +132,7 @@ const callback = async function (req, res) {
           HttpOnly: false,
           secure: true,
           sameSite: "None",
+          domain: process.env.SERVER_URI,
         });
      
         res.redirect(`${process.env.CLIENT_URI}/home/`);

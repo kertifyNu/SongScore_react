@@ -15,6 +15,8 @@ app.use(
   cors({
     origin: "https://song-score.vercel.app", // Your frontend domain
     credentials: true, // Allow cookies to be sent
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(express.json());
