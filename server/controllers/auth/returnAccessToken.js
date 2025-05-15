@@ -3,6 +3,8 @@ const db = require("../../models/schemas");
 
 const accessToken = async (req, res) => {
  // const id = cookies.get("spotifyId");
+ console.log("hiiiiiiiiiiiiiiiiiii");
+ console.log(req);
  const id = "dummy"; // For testing purposes, replace with actual cookie retrieval
   if (!id) {
     console.log("Spotify ID not found in cookies");
