@@ -250,7 +250,8 @@ export default function HomePage() {
   useEffect(() => {
   if (id) {
    const data= getToken();
-    if (data.access_token) {
+    console.log(data);
+    if (data.accesstoken) {
       setToken(data.accessToken)
       setId(data.spotifyId);
       console.log("Token set: ", data.accessToken);
