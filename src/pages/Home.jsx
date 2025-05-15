@@ -14,8 +14,8 @@ import {
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
-const serverURL = import.meta.env.SERVER_URI || "http://localhost:3069";
-const domain = import.meta.env.CLIENT_URI || "http://localhost:5173";
+const serverURL = import.meta.env.VITE_SERVER_URI || "http://localhost:3069";
+const domain = import.meta.env.VITE_CLIENT_URI || "http://localhost:5173";
 
 export default function HomePage() {
   const navigate = useNavigate();
