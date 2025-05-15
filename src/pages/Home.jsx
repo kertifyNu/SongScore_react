@@ -278,7 +278,7 @@ export default function HomePage() {
     // optionally remove query param from URL
     window.history.replaceState({}, document.title, "/home");
   }
-  setToken(spotifyId);
+  setId(spotifyId);
 }, []);
   useEffect(() => {
     const run = async () => {
