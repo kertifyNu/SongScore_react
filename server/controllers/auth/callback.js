@@ -129,7 +129,7 @@ const callback = async function (req, res) {
        
         res.cookie("spotifyId", user.spotifyId, {
           maxAge: 3600000,
-          HttpOnly: false,
+          httpOnly: false,
           secure: true,
           sameSite: "None",
           domain: process.env.SERVER_URI,
