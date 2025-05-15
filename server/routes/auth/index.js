@@ -5,7 +5,7 @@ const authController = require("../../controllers/auth/authController");
 
 router.get("/login", authController.login);
 router.get("/callback", authController.callback);
-router.get("/accessToken/:id", authController.returnAccessToken);
+router.get("/accessToken", authController.returnAccessToken);
 
 // router.use("/users", userRoutes);
 // router.use("/sessions", sessionRoutes);

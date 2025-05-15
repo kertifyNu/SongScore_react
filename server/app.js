@@ -8,6 +8,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const dotenv = require("dotenv");
+const cookieParser = require('cookie-parser');
 const port = 3069;
 dotenv.config();
 app.use(
@@ -17,6 +18,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/songs", songRoutes);
 app.use("/share", shareRoutes);

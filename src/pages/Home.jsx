@@ -16,55 +16,6 @@ import { useNavigate } from "react-router-dom";
 
 const serverURL = import.meta.env.SERVER_URI || "http://localhost:3069";
 const domain = "http://localhost:5173";
-// Mock data (would normally come from Spotify API)
-
-// const topSongs = [
-//   {
-//     id: 1,
-//     title: "Blinding Lights",
-//     artist: "The Weeknd",
-//     album: "After Hours",
-//     image: "/api/placeholder/80/80",
-//     duration: "3:20",
-//     ratings: 4.9,
-//   },
-//   {
-//     id: 2,
-//     title: "HUMBLE.",
-//     artist: "Kendrick Lamar",
-//     album: "DAMN.",
-//     image: "/api/placeholder/80/80",
-//     duration: "2:57",
-//     ratings: 4.8,
-//   },
-//   {
-//     id: 3,
-//     title: "Levitating",
-//     artist: "Dua Lipa",
-//     album: "Future Nostalgia",
-//     image: "/api/placeholder/80/80",
-//     duration: "3:23",
-//     ratings: 4.7,
-//   },
-//   {
-//     id: 4,
-//     title: "Do I Wanna Know?",
-//     artist: "Arctic Monkeys",
-//     album: "AM",
-//     image: "/api/placeholder/80/80",
-//     duration: "4:32",
-//     ratings: 4.9,
-//   },
-//   {
-//     id: 5,
-//     title: "Save Your Tears",
-//     artist: "The Weeknd",
-//     album: "After Hours",
-//     image: "/api/placeholder/80/80",
-//     duration: "3:35",
-//     ratings: 4.7,
-//   },
-// ];
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -262,27 +213,52 @@ export default function HomePage() {
       }))
     );
   }
+  //get token from backend 
+  const getToken = async () => {
+    try {
+      const response = await fetch(`${serverURL}/auth/accessToken`, {
+        method: "GET",
+        credentials: "include",
+      });
+      const data = await response.json();
+      console.log("Token fetched successfully:", data);
+      return data;
+    } catch (error) {
+      console.error("Error fetching token:", error);
+    }
+  }
   useEffect(() => {
-    //get data from cookies
-    const cookies = document.cookie.split("; ");
-    const cookieObj = {};
-    cookies.forEach((cookie) => {
-      const [name, value] = cookie.split("=");
-      cookieObj[name] = decodeURIComponent(value);
-    });
-    console.log("cookies: ", cookieObj);
-    //check if user is logged in
-    if (!cookieObj.access_token) {
+    // //get data from cookies
+    // const cookies = document.cookie.split("; ");
+    // const cookieObj = {};
+    // cookies.forEach((cookie) => {
+    //   const [name, value] = cookie.split("=");
+    //   cookieObj[name] = decodeURIComponent(value);
+    // });
+    // console.log("cookies: ", cookieObj);
+    // //check if user is logged in
+    // if (!cookieObj.access_token) {
+    //   console.log("User not logged in, redirecting to login page...");
+    //   navigate("/auth/login");
+    // } else {
+    //   console.log("User is logged in, access token: ", cookieObj.access_token);
+    //   const t = cookieObj.access_token;
+    //   const id = cookieObj.spotifyId;
+    //   setToken(t);
+    //   setId(id);
+    //   console.log("accToken set: ", cookieObj.access_token);
+    //   if (token) console.log("Token set: ", token);
+    // }
+    //get token from backend
+    const data = await getToken();
+    console.log("Token: ", data);
+    if (data.access_token) {
+      setToken(data.accessToken);
+      setId(data.spotifyId);
+      console.log("Token set: ", data.accessToken);
+    } else {
       console.log("User not logged in, redirecting to login page...");
       navigate("/auth/login");
-    } else {
-      console.log("User is logged in, access token: ", cookieObj.access_token);
-      const t = cookieObj.access_token;
-      const id = cookieObj.spotifyId;
-      setToken(t);
-      setId(id);
-      console.log("accToken set: ", cookieObj.access_token);
-      if (token) console.log("Token set: ", token);
     }
   }, []);
   useEffect(() => {
