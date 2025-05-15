@@ -247,22 +247,28 @@ export default function HomePage() {
     }
   };
 
-  useEffect(() => {
+useEffect(() => {
   if (id) {
-   const data= getToken();
-    console.log(data);
-    if (data.accesstoken) {
-      setToken(data.accessToken)
-      setId(data.spotifyId);
-      console.log("Token set: ", data.accessToken);
-    } else {
-      console.log("User not logged in, redirecting to login page...");
-      navigate("/auth/login");
-    }
-    
+    const fetchToken = async () => {
+      const data = await getToken();
+      console.log(data);
+
+      if (data?.accessToken) {
+        setToken(data.accessToken);
+        setId(data.spotifyId);
+        console.log("Token set: ", data.accessToken);
+      } else {
+        console.log("User not logged in, redirecting to login page...");
+        navigate("/auth/login");
+      }
+    };
+
+    fetchToken();
+  } else {
+    console.log("poop");
   }
-  else{console.log("poop");}
 }, [id]);
+
   
   
   useEffect(() => {
