@@ -76,7 +76,6 @@ const callback = async function (req, res) {
                 error: "invalid_token nested",
               }).toString()}`
             );
-           return;
           });
         user.accessToken = response.data.access_token;
         user.refreshToken = response.data.refresh_token;
