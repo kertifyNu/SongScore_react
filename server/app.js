@@ -19,6 +19,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.options('*', cors()); // Enable preflight for all routes
 app.use(express.json());
 app.use(cookieParser());

@@ -219,6 +219,10 @@ export default function HomePage() {
       const response = await fetch(`${serverURL}/auth/accessToken`, {
         method: "GET",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
       const data = await response.json();
       console.log("Token fetched successfully:", data);
