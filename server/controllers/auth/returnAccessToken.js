@@ -3,7 +3,8 @@ const db = require("../../models/schemas");
 
 const accessToken = async (req, res) => {
  //const id = cookies.get("spotifyId");
- const id = req.cookies.spotifyId;
+ //const id = req.cookies.spotifyId;
+ const id = req.headers['x-spotify-id'];
  console.log("hiiiiiiiiiiiiiiiiiii");
  console.log(req);
  //const id = "dummy"; // For testing purposes, replace with actual cookie retrieval
