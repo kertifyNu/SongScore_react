@@ -222,6 +222,7 @@ export default function HomePage() {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
+          "x-spotify-id": id,
         },
       });
       const data = await response.json();
