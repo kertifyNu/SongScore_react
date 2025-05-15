@@ -249,7 +249,16 @@ export default function HomePage() {
 
   useEffect(() => {
   if (id) {
-    getToken();
+   const data= await getToken();
+    if (data.access_token) {
+      setToken(data.accessToken)
+      setId(data.spotifyId);
+      console.log("Token set: ", data.accessToken);
+    } else {
+      console.log("User not logged in, redirecting to login page...");
+      navigate("/auth/login");
+    }
+    
   }
   else{console.log("poop");}
 }, [id]);
