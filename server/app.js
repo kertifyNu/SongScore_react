@@ -11,6 +11,7 @@ const dotenv = require("dotenv");
 const cookieParser = require('cookie-parser');
 const port = 3069;
 dotenv.config();
+
 app.use(
   cors({
     origin: "https://song-score.vercel.app", // Your frontend domain

@@ -127,13 +127,13 @@ const callback = async function (req, res) {
 
        
        
-        res.cookie("spotifyId", user.spotifyId, {
-          maxAge: 3600000,
-          HttpOnly: false,
-          secure: true,
-          sameSite: "None",
-          domain: process.env.SERVER_URI,
-        });
+        // res.cookie("spotifyId", user.spotifyId, {
+        //   maxAge: 3600000,
+        //   HttpOnly: false,
+        //   secure: true,
+        //   sameSite: "None",
+        //   domain: process.env.SERVER_URI,
+        // });
      
         res.redirect(`${process.env.CLIENT_URI}/home/`);
 

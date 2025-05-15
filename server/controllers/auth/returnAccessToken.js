@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 const db = require("../../models/schemas");
 
 const accessToken = async (req, res) => {
-  const id = cookies.get("spotifyId");
+ // const id = cookies.get("spotifyId");
+ const id = "dummy"; // For testing purposes, replace with actual cookie retrieval
   if (!id) {
     console.log("Spotify ID not found in cookies");
     res.status(400).send({ error: "Spotify ID not found in cookies" });
